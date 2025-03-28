@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">desafio2</string>
+    <string name="nombre_estudiante">Nombre del Estudiante</string>
+    <string name="apellido_estudiante">Apellido del Estudiante</string>
+    <string name="grado">Grado</string>
+    <string name="materia">Materia</string>
+    <string name="nota_final">Nota Final</string>
+    <string name="registrar">Registrar</string>
+    <string name="error_campos_vacios">Todos los campos deben ser llenados</string>
+    <string name="error_nota_invalida">La nota debe estar entre 0 y 10</string>
+    <string name="exito_registro">Nota registrada con éxito</string>
 </resources>
