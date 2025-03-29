@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etNotaFinal: EditText
     private lateinit var btnRegistrar: Button
     private lateinit var btnVerEstudiantes: Button
+    private lateinit var btnLogout: Button
 
     companion object {
         val estudiantesList = ArrayList<String>()
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         etNotaFinal = findViewById(R.id.etNotaFinal)
         btnRegistrar = findViewById(R.id.btnRegistrar)
         btnVerEstudiantes = findViewById(R.id.btnVerEstudiantes)
+        btnLogout = findViewById(R.id.btnLogout)
 
         // Datos para los Spinners
         val grados = arrayOf("Primer Grado", "Segundo Grado", "Tercer Grado")
@@ -49,12 +51,22 @@ class MainActivity : AppCompatActivity() {
 
         btnRegistrar.setOnClickListener {
             registrarNota()
+            val intent = Intent(this, ListadoActivity::class.java)
+            startActivity(intent)
         }
 
         btnVerEstudiantes.setOnClickListener {
             val intent = Intent(this, ListadoActivity::class.java)
             startActivity(intent)
         }
+
+        btnLogout.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK  // Limpiar la pila de actividades
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     private fun registrarNota() {

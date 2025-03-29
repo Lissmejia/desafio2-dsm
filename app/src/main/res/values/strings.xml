@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">desafio2</string>
+    <string name="app_name">Desafio2</string>
     <string name="nombre_estudiante">Nombre del Estudiante</string>
     <string name="apellido_estudiante">Apellido del Estudiante</string>
     <string name="grado">Grado</string>
@@ -9,4 +9,18 @@
     <string name="error_campos_vacios">Todos los campos deben ser llenados</string>
     <string name="error_nota_invalida">La nota debe estar entre 0 y 10</string>
     <string name="exito_registro">Nota registrada con éxito</string>
+    <string name="titulo_listado_estudiantes">Lista de Estudiantes</string>
+    <string name="error_no_estudiantes">No hay estudiantes registrados</string>
+    <string name="btn_volver">Volver</string>
+    <string name="btn_agregar_estudiante">Agregar Estudiante</string>
+    <string name="actualizar_estudiante">Actualizar Estudiante</string>
+    <string name="eliminar_estudiante">Eliminar Estudiante</string>
+    <string name="confirmar_eliminacion">¿Está seguro de que desea eliminar este estudiante?</string>
+    <string name="hint_nombre_actualizar">Nombre</string>
+    <string name="hint_apellido_actualizar">Apellido</string>
+    <string name="hint_nota_actualizar">Nota Final</string>
+    <string name="btn_actualizar">Actualizar</string>
+    <string name="btn_eliminar">Eliminar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="titulo_lista_estudiantes">Lista de Estudiantes</string>
 </resources>

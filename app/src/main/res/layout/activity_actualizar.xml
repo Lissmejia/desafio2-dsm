@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etNombreActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:hint="@string/hint_nombre_actualizar" />
+
+    <EditText
+        android:id="@+id/etApellidoActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="@string/hint_apellido_actualizar" />
+
+    <Spinner
+        android:id="@+id/spinnerGradoActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerMateriaActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"/>
+
+    <EditText
+        android:id="@+id/etNotaActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="@string/hint_nota_actualizar"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/btnActualizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#536DFE"
+        android:text="@string/btn_actualizar"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="25dp"/>
+
+    <Button
+        android:id="@+id/btnEliminar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#536DFE"
+        android:text="@string/btn_eliminar"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="25dp"/>
+
+    <Button
+        android:id="@+id/btnCancelar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_cancelar"
+        android:background="#536DFE"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="25dp"/>
+</LinearLayout>

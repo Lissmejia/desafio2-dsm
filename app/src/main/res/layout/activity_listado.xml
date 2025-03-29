@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,11 +9,12 @@
         android:id="@+id/tvListaEstudiantes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lista de Estudiantes"
+        android:text="@string/titulo_lista_estudiantes"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="100dp"/>
 
     <Spinner
         android:id="@+id/spinnerFiltroGrado"
@@ -27,20 +27,22 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/btnAgregarEstudiante"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAgregarEstudiante"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar Estudiante"
-        android:layout_marginTop="16dp"
-        android:background="#536DFE"
-        android:textColor="#FFFFFF" />
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add"
+        android:contentDescription="Agregar Estudiante"
+        android:backgroundTint="#536DFE"
+        android:tint="@color/white"/>
 
     <Button
         android:id="@+id/btnVolver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Volver"
+        android:text="@string/btn_volver"
         android:layout_marginTop="16dp"
         android:background="#536DFE"
         android:textColor="#FFFFFF" />

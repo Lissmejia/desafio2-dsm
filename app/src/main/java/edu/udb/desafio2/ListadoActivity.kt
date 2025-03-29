@@ -7,16 +7,27 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class ListadoActivity : AppCompatActivity() {
 
     private lateinit var lvEstudiantes: ListView
     private lateinit var spinnerFiltroGrado: Spinner
+    private lateinit var fabAgregarEstudiante: FloatingActionButton
     private lateinit var btnVolver: Button
     private lateinit var btnAgregarEstudiante: Button
     private var estudiantesFiltrados = ArrayList<String>()
+
+    override fun onResume() {
+        super.onResume()
+        if (spinnerFiltroGrado.adapter != null && spinnerFiltroGrado.selectedItem != null) {
+            val gradoSeleccionado = spinnerFiltroGrado.selectedItem.toString()
+            filtrarEstudiantes(gradoSeleccionado)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,21 +35,22 @@ class ListadoActivity : AppCompatActivity() {
 
         lvEstudiantes = findViewById(R.id.lvEstudiantes)
         spinnerFiltroGrado = findViewById(R.id.spinnerFiltroGrado)
+        fabAgregarEstudiante = findViewById(R.id.fabAgregarEstudiante)
         btnVolver = findViewById(R.id.btnVolver)
-        btnAgregarEstudiante = findViewById(R.id.btnAgregarEstudiante)
 
+        // Cargar los grados desde la lista de estudiantes
         val grados = MainActivity.estudiantesList.map { it.split(" - ")[1] }.distinct().toTypedArray()
 
+        // Configurar el adaptador del spinner
         val adapterGrado = ArrayAdapter(this, android.R.layout.simple_spinner_item, grados)
         adapterGrado.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerFiltroGrado.adapter = adapterGrado
 
-
+        // Configurar el listener del spinner
         spinnerFiltroGrado.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
                 filtrarEstudiantes(grados[position])
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
@@ -46,8 +58,8 @@ class ListadoActivity : AppCompatActivity() {
             finish()
         }
 
-        btnAgregarEstudiante.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)  // Navegar a la actividad de registro
+        fabAgregarEstudiante.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
@@ -63,7 +75,9 @@ class ListadoActivity : AppCompatActivity() {
             intent.putExtra("nota", datos[3])
             startActivityForResult(intent, 1)
         }
+
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -73,11 +87,15 @@ class ListadoActivity : AppCompatActivity() {
                 // Si se ha actualizado la lista, la volvemos a cargar
                 val gradoSeleccionado = spinnerFiltroGrado.selectedItem.toString()
                 filtrarEstudiantes(gradoSeleccionado)
+
+                // Notificar al adaptador que la lista ha cambiado
+                (lvEstudiantes.adapter as ArrayAdapter<*>).notifyDataSetChanged()
             }
         }
     }
 
     private fun filtrarEstudiantes(grado: String) {
+        if (MainActivity.estudiantesList.isEmpty()) return
         estudiantesFiltrados.clear()
         estudiantesFiltrados.addAll(MainActivity.estudiantesList.filter { it.contains(grado) })
 

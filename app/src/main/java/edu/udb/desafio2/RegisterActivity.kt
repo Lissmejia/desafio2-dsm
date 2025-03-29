@@ -1,72 +1,90 @@
+// RegisterActivity.kt
 package edu.udb.desafio2
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.util.PatternsCompat
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 
 class RegisterActivity : AppCompatActivity() {
-    // Creamos la referencia del objeto FirebaseAuth N
-    private lateinit var auth: FirebaseAuth
 
-    // Referencia a componentes de nuestro layout
-    private lateinit var buttonRegister: Button
-    private lateinit var textViewLogin: TextView
+    private lateinit var auth: FirebaseAuth
+    private lateinit var etRegisterEmail: EditText
+    private lateinit var etRegisterPassword: EditText
+    private lateinit var btnRegister: Button
+    private lateinit var btnLogin: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_register)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-     // Inicializamos el objeto Firebase Auth
         auth = FirebaseAuth.getInstance()
+        auth.setLanguageCode("es")
 
-        buttonRegister = findViewById(R.id.btnRegister)
-        buttonRegister.setOnClickListener {
-            val email = findViewById<EditText>(R.id.txtEmail).text.toString()
-            val password = findViewById<EditText>(R.id.txtPass).text.toString()
-            this.register (email, password)
+        etRegisterEmail = findViewById(R.id.etRegisterEmail)
+        etRegisterPassword = findViewById(R.id.etRegisterPassword)
+        btnRegister = findViewById(R.id.btnRegister)
+        btnLogin = findViewById(R.id.btnLogin)
+
+        btnRegister.setOnClickListener {
+            val email = etRegisterEmail.text.toString()
+            val password = etRegisterPassword.text.toString()
+            if (validateInput(email, password)) {
+                signUp(email, password)
+            }
         }
-        textViewLogin = findViewById(R.id.textViewLogin)
-        textViewLogin.setOnClickListener {
-            this.goToLogin()
+
+        btnLogin.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 
+    private fun validateInput(email: String, password: String): Boolean {
+        return when {
+            email.isEmpty() || password.isEmpty() -> {
+                showAlertDialog("Error", "Por favor, complete todos los campos")
+                false
+            }
+            !PatternsCompat.EMAIL_ADDRESS.matcher(email).matches() -> {
+                showAlertDialog("Error", "Ingrese un correo válido")
+                false
+            }
+            password.length < 6 -> {
+                showAlertDialog("Error", "La contraseña debe tener al menos 6 caracteres")
+                false
+            }
+            else -> true
+        }
+    }
 
-    private fun register(email: String, password: String) {
+    private fun signUp(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    Log.d(TAG, "Registro exitoso: ${auth.currentUser}")
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
+                } else {
+                    showAlertDialog("Error", task.exception?.localizedMessage ?: "Error desconocido")
                 }
-            }.addOnFailureListener { exception ->
-                Toast.makeText(
-                    applicationContext,
-                    exception.localizedMessage,
-                    Toast.LENGTH_LONG
-                ).show()
             }
     }
 
-    private fun goToLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+    private fun showAlertDialog(title: String, message: String) {
+        AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
+    companion object {
+        private const val TAG = "RegisterActivity"
+    }
 }
