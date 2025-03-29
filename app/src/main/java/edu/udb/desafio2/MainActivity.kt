@@ -1,5 +1,6 @@
 package edu.udb.desafio2
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -16,18 +17,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spinnerMateria: Spinner
     private lateinit var etNotaFinal: EditText
     private lateinit var btnRegistrar: Button
+    private lateinit var btnVerEstudiantes: Button
+
+    companion object {
+        val estudiantesList = ArrayList<String>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Referencias de los elementos
         etNombre = findViewById(R.id.etNombre)
         etApellido = findViewById(R.id.etApellido)
         spinnerGrado = findViewById(R.id.spinnerGrado)
         spinnerMateria = findViewById(R.id.spinnerMateria)
         etNotaFinal = findViewById(R.id.etNotaFinal)
         btnRegistrar = findViewById(R.id.btnRegistrar)
+        btnVerEstudiantes = findViewById(R.id.btnVerEstudiantes)
 
         // Datos para los Spinners
         val grados = arrayOf("Primer Grado", "Segundo Grado", "Tercer Grado")
@@ -41,9 +47,13 @@ class MainActivity : AppCompatActivity() {
         adapterMateria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerMateria.adapter = adapterMateria
 
-        // Acción del botón
         btnRegistrar.setOnClickListener {
             registrarNota()
+        }
+
+        btnVerEstudiantes.setOnClickListener {
+            val intent = Intent(this, ListadoActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -72,8 +82,18 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // Mostrar Toast de éxito
-        Toast.makeText(this, getString(R.string.exito_registro), Toast.LENGTH_SHORT).show()
+        // Guardar en la lista global
+        val estudiante = "$nombre $apellido - $grado - $materia - $notaFinal"
+        estudiantesList.add(estudiante)
+
+        Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+
+        etNombre.text.clear()
+        etApellido.text.clear()
+        etNotaFinal.text.clear()
+
+        val intent = Intent(this, ListadoActivity::class.java)
+        startActivity(intent)
     }
 }
 

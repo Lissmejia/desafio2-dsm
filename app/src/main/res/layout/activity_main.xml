@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp" >
 
     <EditText
         android:id="@+id/etNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/nombre_estudiante" />
+        android:hint="@string/nombre_estudiante"
+        android:layout_marginTop="100dp" />
 
     <EditText
         android:id="@+id/etApellido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/apellido_estudiante"
-        android:layout_below="@id/etNombre" />
+        android:layout_below="@id/etNombre"
+        android:layout_marginTop="25dp" />
 
     <Spinner
         android:id="@+id/spinnerGrado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etApellido" />
+        android:layout_below="@id/etApellido"
+        android:layout_marginTop="25dp"/>
 
     <Spinner
         android:id="@+id/spinnerMateria"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerGrado" />
+        android:layout_below="@id/spinnerGrado"
+        android:layout_marginTop="41dp"/>
 
     <EditText
         android:id="@+id/etNotaFinal"
@@ -34,13 +40,27 @@
         android:layout_height="wrap_content"
         android:hint="@string/nota_final"
         android:layout_below="@id/spinnerMateria"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:layout_marginTop="41dp"/>
 
     <Button
         android:id="@+id/btnRegistrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/registrar"
-        android:layout_below="@id/etNotaFinal" />
+        android:layout_below="@id/etNotaFinal"
+        android:background="#536DFE"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="41dp" />
+
+    <Button
+        android:id="@+id/btnVerEstudiantes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnRegistrar"
+        android:text="Ver Estudiantes"
+        android:background="#536DFE"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="31dp"/>
 
 </RelativeLayout>
