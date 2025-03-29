@@ -38,12 +38,4 @@
         android:backgroundTint="#536DFE"
         android:tint="@color/white"/>
 
-    <Button
-        android:id="@+id/btnVolver"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_volver"
-        android:layout_marginTop="16dp"
-        android:background="#536DFE"
-        android:textColor="#FFFFFF" />
 </LinearLayout>
